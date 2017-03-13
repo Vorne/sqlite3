@@ -13,7 +13,6 @@ export BUILD_DIR
 
 -include $(BUILD_DIR)/Makefile.base.mk
 
-
 # Only use implicit rules created in this file.
 #
 .SUFFIXES:
@@ -33,6 +32,12 @@ PROJECTFLAGS =  -DSQLITE_OS_OTHER=1
 PROJECTFLAGS += -DSQLITE_ENABLE_MEMSYS3
 PROJECTFLAGS += -DSQLITE_DEFAULT_TEMP_CACHE_SIZE=2000
 PROJECTFLAGS += -I$(THREADX_DIR)
+
+ifeq "$(USING_OPTIMIZATION)" "1"
+	PROJECTFLAGS += -O2
+else
+	PROJECTFLAGS += -O0
+endif
 
 # Defining THREADSAFE and MUTEX_NOOP lets us define our own mutexes.
 #
